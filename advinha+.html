@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Jogo de advinhação (Praticando a lógica de Programação)</h1>
+        <input/>
+        <button>Advinhe!</button>
+        <script>
+
+            function sorteia(n){
+            return Math.round(Math.random()*n);
+            }
+
+            function sorteiaNumeros(quantidade) { // essa função além de sortear os números na lista, ela garante que não gere o 0 e seja alocado na lista, e que não repita um número.
+                var segredos = [];
+
+                var num = 1;
+
+                while(num <= quantidade){ // while responsável por sortear os números para a lista.
+                    var numAleatorio = sorteia(10);
+                    if (numAleatorio !== 0) { // estou garantindo que o numero 0 não seja alocado na lista
+                        var achou = false;
+
+                        for (posicao = 0; posicao < segredos.length; posicao++){ // for responsável por verificar se a lista foi preenchida.
+                            if(segredos[posicao] == numAleatorio){
+                                achou = true;
+                                break;
+                            }
+                        }
+
+                        if(achou == false){ // caso ele gere um número que já esteja na lista, ele discarta e adiciona outro.
+                            segredos.push(numAleatorio);
+                            num++;
+                        }
+                    }    
+                }
+                return segredos;
+            }   
+        
+            function verifica(){
+                var achou = false;
+                for(var posicao = 0; posicao < segredos.length; posicao++){
+                    if (input.value == segredos[posicao]) {
+                        alert("Você acertou!");
+                        achou = true;
+                        break;
+                    }
+                }
+
+                if(achou == false){ // estou verificando se realmente o usuário acertou o número, caso não tenha acertado, esse if será acionado,
+                    alert("Você Errou!"); 
+                }
+
+                input.value = "";
+                input.focus();
+            }
+
+            var segredos = sorteiaNumeros(4); // o tamanho da minha lista dependerá do parâmetro que eu passo nessa linha de código.
+
+            var input = document.querySelector("input"); // é uma função para acessar uma tag do html, e estamos atribuindo a variável input.
+            input.value;
+        
+            var button = document.querySelector("button");
+            // estamos passando o código da função para que quando o usuário clickar no botão ele realiza o código da função, repare que está sem parenteses, e isso é de propósito, pq se eu passar com parenteses ele vai executar o código no momento em que abro o programa, e esse não é o objetivo, que ele só execute as linhas do código da função, quando o usuário clickar no botão.
+            button.onclick = verifica;
+        </script>
+    </div>
+</body>
+</html>
